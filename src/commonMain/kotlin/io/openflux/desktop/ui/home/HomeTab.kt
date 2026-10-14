@@ -60,6 +60,7 @@ import io.openflux.desktop.model.isActive
 import io.openflux.desktop.service.AppContainer
 import io.openflux.desktop.service.LocalAppContainer
 import io.openflux.desktop.service.PlatformKind
+import io.openflux.desktop.service.isPhone
 import io.openflux.desktop.ui.LocalTouchUi
 import io.openflux.desktop.ui.describe
 import io.openflux.desktop.ui.Format
@@ -260,7 +261,7 @@ private fun ControlPanel(
         )
         Spacer(Modifier.height(AppTheme.spacing.xs))
         Text(
-            if (state.isActive) "Режим меняется после отключения" else mode.describe(platform.kind == PlatformKind.Android),
+            if (state.isActive) "Режим меняется после отключения" else mode.describe(platform.kind.isPhone),
             style = AppTheme.typography.caption,
             color = AppTheme.colors.textSecondary,
         )
@@ -347,7 +348,7 @@ private fun DetailsColumn(model: HomeScreenModel, selected: Profile?, state: Con
     val shareLink by model.connection.exitShareLink.collectAsState()
     val settings by model.settings.settings.collectAsState()
     val container = LocalAppContainer.current
-    val android = container.platform.kind == PlatformKind.Android
+    val android = container.platform.kind.isPhone
     val profile = when (state) {
         is ConnectionState.Connecting -> state.profile
         is ConnectionState.Connected -> state.profile

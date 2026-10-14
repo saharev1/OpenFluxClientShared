@@ -53,6 +53,7 @@ import io.openflux.desktop.model.isActive
 import io.openflux.desktop.service.AppContainer
 import io.openflux.desktop.service.LocalAppContainer
 import io.openflux.desktop.service.PlatformKind
+import io.openflux.desktop.service.isPhone
 import io.openflux.desktop.ui.LocalTouchUi
 import io.openflux.desktop.ui.describe
 import io.openflux.desktop.ui.LocalScrollbars
@@ -95,7 +96,7 @@ enum class SettingsCategory(val title: String, val subtitle: String, val icon: D
 }
 
 class SettingsScreenModel(val container: AppContainer) : ScreenModel {
-    val android = container.platform.kind == PlatformKind.Android
+    val android = container.platform.kind.isPhone
     var category by mutableStateOf(SettingsCategory.Connection)
     var mobileDetailOpen by mutableStateOf(false)
     var latestRelease by mutableStateOf<String?>(null)

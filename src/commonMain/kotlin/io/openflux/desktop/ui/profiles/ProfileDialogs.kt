@@ -32,6 +32,7 @@ import io.openflux.desktop.model.ProfileSource
 import io.openflux.desktop.model.TransportType
 import io.openflux.desktop.service.LocalAppContainer
 import io.openflux.desktop.service.PlatformKind
+import io.openflux.desktop.service.isPhone
 import io.openflux.desktop.ui.components.AppButton
 import io.openflux.desktop.ui.components.AppCard
 import io.openflux.desktop.ui.components.AppDialog
@@ -113,7 +114,7 @@ fun ImportDialog(model: ProfilesScreenModel) {
             AppButton("Из буфера", {
                 text = model.clipboardText(); source = ProfileSource.Link; notice = null
             }, style = ButtonStyle.Secondary, leading = Icons.Rounded.ContentPaste)
-            AppButton(if (platform.kind == PlatformKind.Android) "QR из галереи" else "QR из файла…", {
+            AppButton(if (platform.kind.isPhone) "QR из галереи" else "QR из файла…", {
                 scope.launch {
                     val (found, picked) = model.qrFromFile()
                     if (found != null) { text = found; source = ProfileSource.Qr; notice = null }

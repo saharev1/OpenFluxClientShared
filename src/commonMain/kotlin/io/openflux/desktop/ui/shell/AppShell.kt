@@ -49,6 +49,7 @@ import io.openflux.desktop.model.isActive
 import io.openflux.desktop.service.AppContainer
 import io.openflux.desktop.service.LocalAppContainer
 import io.openflux.desktop.service.PlatformKind
+import io.openflux.desktop.service.isPhone
 import io.openflux.desktop.ui.BrowserViews
 import io.openflux.desktop.ui.LocalBrowserViews
 import io.openflux.desktop.ui.LocalScrollbars
@@ -118,7 +119,7 @@ fun OpenFluxApp(container: AppContainer, scrollbars: Scrollbars, shortcuts: Shor
     }
     val toaster = remember { Toaster() }
     val shell = remember { ShellController() }
-    val touch = container.platform.kind == PlatformKind.Android
+    val touch = container.platform.kind.isPhone
     OpenFluxTheme(dark, touch) {
         CompositionLocalProvider(
             LocalTouchUi provides touch,
